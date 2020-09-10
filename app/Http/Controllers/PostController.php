@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Course;
 use App\Post;
+use App\Video;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
     public function show(Post $post){
         $posts = Post::where('course_id', $post->course_id)->latest()->limit(6);
-        return view('posts.show', compact('posts', 'post'));
+        $videos = Video::get();
+        return view('posts.show', compact('posts', 'post', 'videos'));
     }
     public function index(){
         $posts = Post::latest()->paginate(9);

@@ -20,13 +20,41 @@
         </div>
 
         <div class="float-right">
-            @if (auth()->user()->id == $post->user->id)
+            @if (auth()->user()->id == $post->user_id)
                 <a href="{{ route('post.edit', $post->slug) }}" class="btn btn-success">Edit</a>
                 <a href="" class="btn btn-danger">Delete</a>
             @endif
         </div>
         {{ $post->created_at->format("d M, Y") }}
         <h5><a href="{{ route('course.index', $post->course->slug) }}">{{ $post->course->name }}</a></h5>
+        @if (auth()->user()->id == $post->user_id)
+            @include('posts.video.create', ['post'=>$post])
+        @endif
+        <table class="table">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Title</th>
+              </tr>
+            </thead>
+            <tbody>
+            @foreach ($post->videos as $video)
+                <tr>
+                    <th scope="row">{{ $loop->iteration }}</th>
+                    <td>
+                        <a href="{{ route('show.video', $video->slug) }}">
+                            {{ $video->title }}
+                        </a>
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-play-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M11.596 8.697l-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/>
+                        </svg>
+                    </td>
+
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
+
     </div>
     <p>
         {!! nl2br($post->body) !!}

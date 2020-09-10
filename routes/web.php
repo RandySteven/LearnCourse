@@ -41,6 +41,9 @@ Route::middleware('auth')->group(function(){
     Route::post('/forum-comment', 'CommentController@storeAnswer')->name('answer.store');
     Route::post('/forum-reply', 'CommentController@replyAnswerStore')->name('answer.reply');
 
+    //videos
+    Route::post('/store-video', 'VideoController@store')->name('store.video');
+    Route::get('/video-tutorial/{video:slug}', 'VideoController@show')->name('show.video')->withoutMiddleware('auth');
 });
 Route::get('/', 'LandingController@index');
 Route::get('/learn-code', function () {
