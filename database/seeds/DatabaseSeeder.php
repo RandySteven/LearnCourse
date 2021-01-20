@@ -15,6 +15,6 @@ class DatabaseSeeder extends Seeder
     {
         // $this->call(UserSeeder::class);
         // $this->call(CourseSeeder::class);
-        Post::factory()->count(5)->create();
+        // factory(Post::class, 5)->create();
     }
 }

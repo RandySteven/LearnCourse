@@ -11,6 +11,8 @@
         </a>
     </div>
     <div class="container center">
-        <img src="{{ asset('storage/'.$video->video) }}" alt="">
+        <video width="320" height="420" controls>
+            <source src="{{ asset('/upload/'.$video->video) }}" type="video/mp4">
+        </video>
     </div>
 @endsection
