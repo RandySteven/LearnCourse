@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Post;
 use Database\Factories\PostFactory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;

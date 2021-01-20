@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Controllers\AnswerController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,8 +37,8 @@ Route::middleware('auth')->group(function(){
     });
 
     //comment-reply post
-    Route::post('/comment', 'CommentController@store')->name('comment.store');
-    Route::post('/reply', 'CommentController@replyStore')->name('reply.store');
+    Route::post('/comment', [CommentController::class, 'store'])->name('comment.store');
+    Route::post('/reply', [CommentController::class ,'replyStore'])->name('reply.store');
 
     //forum
     Route::get('/forums', 'ForumController@index')->name('forum.index')->withoutMiddleware('auth');
@@ -45,8 +48,8 @@ Route::middleware('auth')->group(function(){
     Route::delete('/forum/{forum:id}', 'ForumController@destroy')->name('forum.delete');
 
     //comment-reply forum
-    Route::post('/forum-comment', 'CommentController@storeAnswer')->name('answer.store');
-    Route::post('/forum-reply', 'CommentController@replyAnswerStore')->name('answer.reply');
+    Route::post('/forum-comment', [AnswerController::class, 'store'])->name('answer.store');
+    Route::post('/forum-reply', [AnswerController::class, 'storeReplies'])->name('answer.reply');
 
     //videos
     Route::post('/store-video', 'VideoController@store')->name('store.video');

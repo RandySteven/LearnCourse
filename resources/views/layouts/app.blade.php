@@ -108,7 +108,9 @@
             <p>
                 Programmer membuat sesuatu dengan penuh cinta.
             </p>
-            <button class="btn btn-outline-secondary" onclick="darkmode()">Darkmode</button>
+            <div class="m-2">
+                <button class="btn btn-outline-secondary" onclick="darkmode()">Darkmode</button>
+            </div>
         </div>
     </footer>
 

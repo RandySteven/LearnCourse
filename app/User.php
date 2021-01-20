@@ -47,6 +47,16 @@ class User extends Authenticatable
         return $this->hasMany(Forum::class);
     }
 
+    public function answers()
+    {
+        return $this->hasMany(Answer::class);
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
     public function gravatar($size=150){
         return "https://www.gravatar.com/avatar/" . md5( strtolower( trim( $this->email ) ) ) . "&d=mp&s=" . $size;
     }

@@ -19,7 +19,7 @@ class Forum extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function comments(){
-        return $this->morphMany(Comment::class, 'commentable')->whereNull('parent_id');
+    public function answers(){
+        return $this->morphMany(Answer::class, 'answerable')->whereNull('parent_id');
     }
 }
