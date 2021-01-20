@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\CourseController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,16 +18,20 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->group(function(){
     //post
-    Route::get('/posts', 'PostController@index')->name('post.index')->withoutMiddleware('auth');
-    Route::get('/create-post/', 'PostController@create')->name('post.create');
-    Route::post('/create-post/', 'PostController@store')->name('post.store');
-    Route::get('/post/{post:slug}', 'PostController@show')->name('post.show')->withoutMiddleware('auth');
-    Route::get('/post-edit/{post:slug}', 'PostController@edit')->name('post.edit');
-    Route::patch('/post-update/{post:slug}', 'PostController@update')->name('post.update');
+    Route::prefix('posts')->group(function(){
+        Route::get('', [PostController::class, 'index'])->name('post.index')->withoutMiddleware('auth');
+        Route::get('/create-post/', [PostController::class, 'create'])->name('post.create');
+        Route::post('/create-post/', [PostController::class, 'store'])->name('post.store');
+        Route::get('/{post:slug}', [PostController::class, 'show'])->name('post.show')->withoutMiddleware('auth');
+        Route::get('/post-edit/{post:slug}', [PostController::class, 'edit'])->name('post.edit');
+        Route::patch('/post-update/{post:slug}', [PostController::class, 'update'])->name('post.update');
+    });
 
     //course
-    Route::get('/courses/{course:slug}', 'CourseController@show')->name('course.index')->withoutMiddleware('auth');
-    Route::get('/courses/', 'CourseController@index')->name('courses.index')->withoutMiddleware('auth');
+    Route::prefix('courses')->group(function(){
+        Route::get('/courses/{course:slug}', [CourseController::class, 'show'])->name('course.show')->withoutMiddleware('auth');
+        Route::get('/courses/', [CourseController::class, 'index'])->name('courses.index')->withoutMiddleware('auth');
+    });
 
     //comment-reply post
     Route::post('/comment', 'CommentController@store')->name('comment.store');
@@ -52,4 +59,4 @@ Route::get('/learn-code', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');

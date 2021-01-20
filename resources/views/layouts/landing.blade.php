@@ -22,7 +22,7 @@
                 <div class="card mb-2">
                     <div class="card-body">
                     <h5 class="card-title">{{ $course->name }}</h5>
-                    <a href="{{ route('course.index', $course->slug) }}" class="card-link">See Course</a>
+                    <a href="{{ route('course.show', $course->slug) }}" class="card-link">See Course</a>
                     </div>
                 </div>
             </div>
@@ -69,38 +69,4 @@
     </div>
 </div>
 
-<div class="container my-2">
-    <div class="row">
-        <div class="col-lg-4">
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="{{ asset('/images/246x0w.png') }}" alt="Card image cap">
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  <a href="#" class="btn btn-primary">Check this website</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4">
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="{{ asset('/images/200503051913-15-ju.jpg') }}" alt="Card image cap">
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  <a href="#" class="btn btn-primary">Check this website</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4">
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="{{ asset('/images/traveloka_logo.jpg') }}" alt="Card image cap">
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  <a href="#" class="btn btn-primary">Check this website</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 @endsection

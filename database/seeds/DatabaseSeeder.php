@@ -1,5 +1,7 @@
 <?php
 
+use App\Post;
+use Database\Seeders\PostSeeder;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -11,7 +13,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(UserSeeder::class);
-        $this->call(CourseSeeder::class);
+        // $this->call(UserSeeder::class);
+        // $this->call(CourseSeeder::class);
+        Post::factory()->count(5)->create();
     }
 }
