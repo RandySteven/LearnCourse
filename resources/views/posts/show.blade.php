@@ -20,53 +20,65 @@
         </div>
 
         <div class="float-right">
-            @if (Auth::user()->id == $post->user->id)
-                <a href="{{ route('post.edit', $post->slug) }}" class="btn btn-success">Edit</a>
-                <a href="" class="btn btn-danger">Delete</a>
-            @endif
+            @auth
+                @if (Auth::user()->id == $post->user->id)
+                    <a href="{{ route('post.edit', $post->slug) }}" class="btn btn-success">Edit</a>
+                    <a href="" class="btn btn-danger">Delete</a>
+                @endif
+            @endauth
         </div>
         {{ $post->created_at->format("d M, Y") }}
         <h5><a href="{{ route('course.show', $post->course->slug) }}">{{ $post->course->name }}</a></h5>
-        @if (Auth::user()->id == $post->user->id)
-            @include('posts.video.create', ['post'=>$post])
-        @endif
+        @auth
+            @if (Auth::user()->id == $post->user->id)
+                @include('posts.video.create', ['post'=>$post])
+            @endif
+        @endauth
 
     </div>
     <p>
         {!! nl2br($post->body) !!}
     </p>
 
-    <table class="table">
-        <thead class="thead-dark">
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Title</th>
-            @if (Auth::user()->id == $post->user->id)
-                <th scope="col">Action</th>
-            @endif
-          </tr>
-        </thead>
-        <tbody>
-        @foreach ($post->videos as $video)
+    @if ($post->videos->count()!=0)
+        <table class="table">
+            <thead class="thead-dark">
             <tr>
-                <th scope="row">{{ $loop->iteration }}</th>
-                <td>
-                    <a href="{{ route('show.video', $video->slug) }}">
-                        {{ $video->title }}
-                    </a>
-                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-play-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M11.596 8.697l-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/>
-                    </svg>
-                </td>
-                @if (Auth::user()->id == $post->user->id)
-                    <td>
-                        <a href="" class="btn btn-primary">Edit</a>
-                    </td>
-                @endif
+                <th scope="col">#</th>
+                <th scope="col">Title</th>
+                @auth
+                    @if (Auth::user()->id == $post->user->id)
+                        <th scope="col">Action</th>
+                    @endif
+                @endauth
             </tr>
-        @endforeach
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            @foreach ($post->videos as $video)
+                <tr>
+                    <th scope="row">{{ $loop->iteration }}</th>
+                    <td>
+                        <a href="{{ route('show.video', $video->slug) }}">
+                            {{ $video->title }}
+                        </a>
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-play-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M11.596 8.697l-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/>
+                        </svg>
+                    </td>
+                    @auth
+                        @if (Auth::user()->id == $post->user->id)
+                            <td>
+                                <a href="" class="btn btn-primary">Edit</a>
+                            </td>
+                        @endif
+                    @endauth
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
+    @else
+        No Video yet
+    @endif
 
 
     <div class="container">
@@ -109,7 +121,7 @@
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     @else
-        You must login to comment
+        You must <a href="{{ route('login') }}">login</a> to comment
     @endif
 </div>
 @endsection

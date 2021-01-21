@@ -7,8 +7,10 @@
 @endsection
 
 @section('content')
-<div class="row">
+<div class="container">
     <a href="{{ route('forum.create') }}" class="btn btn-success float-right">Create Forum</a>
+</div>
+<div class="row">
     <div class="col-md-6">
         <h3>Forum</h3>
         @forelse ($forums as $forum)

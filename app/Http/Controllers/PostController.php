@@ -40,7 +40,7 @@ class PostController extends Controller
         $attr['course_id'] = request('course');
         $post = auth()->user()->posts()->create($attr);
 
-        return redirect('/');
+        return redirect('/posts')->with('success', 'Add post success');
     }
 
     public function edit(Post $post){
@@ -68,6 +68,11 @@ class PostController extends Controller
 
         $attr['course_id'] = request('course');
         $post->update($attr);
-        return redirect('/');
+        return redirect('/posts')->with('success', 'Success update post');
+    }
+
+    public function delete(Post $post){
+        $post->delete();
+        return redirect('/posts')->with('success', 'Success delete post');
     }
 }

@@ -23,7 +23,7 @@ class PostFactory extends Factory
     {
         return [
             'title' => $this->faker->name,
-            'thumbnail' => 'images/posts/'.$this->faker->image('public/storage/images/posts', 640, 480, null, false),
+            'thumbnail' => '/images/posts/'.$this->faker->image('public/storage/images/posts', 640, 480, null, false),
             'user_id' => 1,
             'course_id' => $this->faker->numberBetween(1, 18),
             'body' => $this->faker->paragraph(3),
